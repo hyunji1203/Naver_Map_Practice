@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationListener
 import android.location.LocationManager
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +19,7 @@ import androidx.core.content.ContextCompat
 import com.example.naver_map_practice.databinding.ActivityMainBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
@@ -24,7 +27,7 @@ import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
+class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mapView: MapFragment
     private lateinit var naverMap: NaverMap
@@ -148,10 +151,43 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         Log.d("bbotto", "${marker.position}")
         marker.map = naverMap
 
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
         val uiSetting = naverMap.uiSettings
         uiSetting.isLocationButtonEnabled = true
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+
+        naverMap.addOnLocationChangeListener { location ->
+            Log.d("bbotto", "${location.latitude}, ${location.longitude}")
+        }
         naverMap.locationSource = locationSource
+    }
+
+    override fun onLocationChanged(p0: Location) {
+        val coord = LatLng(p0)
+
+        naverMap?.let {
+            it.moveCamera(CameraUpdate.scrollTo(coord))
+        }
+    }
+
+    override fun onLocationChanged(locations: MutableList<Location>) {
+        super.onLocationChanged(locations)
+    }
+
+    override fun onFlushComplete(requestCode: Int) {
+        super.onFlushComplete(requestCode)
+    }
+
+    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+        super.onStatusChanged(provider, status, extras)
+    }
+
+    override fun onProviderEnabled(provider: String) {
+        super.onProviderEnabled(provider)
+    }
+
+    override fun onProviderDisabled(provider: String) {
+        super.onProviderDisabled(provider)
     }
 
     companion object {
