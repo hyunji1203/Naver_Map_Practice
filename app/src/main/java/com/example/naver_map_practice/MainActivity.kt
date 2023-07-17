@@ -16,13 +16,13 @@ import androidx.core.content.ContextCompat
 import com.example.naver_map_practice.databinding.ActivityMainBinding
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
-import com.naver.maps.map.MapView
+import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mapView: MapView
+    private lateinit var mapView: MapFragment
     private lateinit var naverMap: NaverMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +30,11 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mapView = binding.naverMapView
-        mapView.getMapAsync(this)
+        val fragmentManager = supportFragmentManager
+        val mapFragment = fragmentManager.findFragmentById(R.id.map) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fragmentManager.beginTransaction().add(R.id.map, it).commit()
+            }
 
         if (checkLocationService()) {
             permissionCheck()
@@ -114,14 +117,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         this.naverMap = naverMap
 
         val campos = CameraPosition(
-            LatLng(37.5489, 127.1673),
+            LatLng(37.515304, 127.103078),
             3.0,
         )
         naverMap.cameraPosition = campos
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     companion object {
