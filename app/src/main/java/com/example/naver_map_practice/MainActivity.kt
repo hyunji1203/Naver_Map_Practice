@@ -151,7 +151,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         Log.d("bbotto", "${marker.position}")
         marker.map = naverMap
 
-        naverMap.locationTrackingMode = LocationTrackingMode.Follow
         val uiSetting = naverMap.uiSettings
         uiSetting.isLocationButtonEnabled = true
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
@@ -160,6 +159,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
             Log.d("bbotto", "${location.latitude}, ${location.longitude}")
         }
         naverMap.locationSource = locationSource
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
     }
 
     override fun onLocationChanged(p0: Location) {
@@ -174,20 +174,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         super.onLocationChanged(locations)
     }
 
-    override fun onFlushComplete(requestCode: Int) {
-        super.onFlushComplete(requestCode)
-    }
-
     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
         super.onStatusChanged(provider, status, extras)
-    }
-
-    override fun onProviderEnabled(provider: String) {
-        super.onProviderEnabled(provider)
-    }
-
-    override fun onProviderDisabled(provider: String) {
-        super.onProviderDisabled(provider)
     }
 
     companion object {
