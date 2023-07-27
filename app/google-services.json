@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "635158472692",
+    "project_id": "test-practice-39429",
+    "storage_bucket": "test-practice-39429.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635158472692:android:7df3a8d5880109c70ebba1",
+        "android_client_info": {
+          "package_name": "com.example.naver_map_practice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635158472692-frct4csf1r5144kbm87htas8ls8mht8n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_JyQFasFUsDGKerdvulmigXIhtYcYauU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635158472692-frct4csf1r5144kbm87htas8ls8mht8n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

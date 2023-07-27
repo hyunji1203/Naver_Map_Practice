@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
 
         Log.d("test", "etst")
 
-//        naverMap.addOnLocationChangeListener { location ->
+//        naverMap.addOnLocationChangeListener { location ->git
 //            Log.d("bbotto", "${location.latitude}, ${location.longitude}")
 //        }
     }
