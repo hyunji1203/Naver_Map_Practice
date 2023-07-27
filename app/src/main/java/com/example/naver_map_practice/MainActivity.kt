@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         mapFragment.getMapAsync(this)
         mapView = mapFragment
 
+        binding.dialog.setOnClickListener {
+            DialogBuilder(this).createDialog()
+        }
 
         if (checkLocationService()) {
             permissionCheck()
@@ -60,7 +63,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-            ) != PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_DENIED
         ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this,
@@ -100,7 +103,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
                     builder.show()
                 }
             }
-        } else {
         }
     }
 
@@ -154,12 +156,21 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         val uiSetting = naverMap.uiSettings
         uiSetting.isLocationButtonEnabled = true
         locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-
-        naverMap.addOnLocationChangeListener { location ->
-            Log.d("bbotto", "${location.latitude}, ${location.longitude}")
-        }
         naverMap.locationSource = locationSource
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
+        trackingMyLocation()
+
+        Log.d("test", "etst")
+
+//        naverMap.addOnLocationChangeListener { location ->
+//            Log.d("bbotto", "${location.latitude}, ${location.longitude}")
+//        }
+    }
+
+    private fun trackingMyLocation() {
+        naverMap.addOnLocationChangeListener { location ->
+            Toast.makeText(this, "${location.latitude}, ${location.latitude}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onLocationChanged(p0: Location) {
