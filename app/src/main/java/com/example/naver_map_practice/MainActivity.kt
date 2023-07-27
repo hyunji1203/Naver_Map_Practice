@@ -160,7 +160,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener {
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
         trackingMyLocation()
 
-        Log.d("test", "etst")
+        Log.d("test", "efgfdgftstasdas")
+
+//        naverMap.addOnLocationChangeListener { location ->git
 
 //        naverMap.addOnLocationChangeListener { location ->
 //            Log.d("bbotto", "${location.latitude}, ${location.longitude}")
